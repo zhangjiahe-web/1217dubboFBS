@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+    <form th:action="@{/}" th:method="post">
+        <p>产品代码:<input type="text" name="ID">风险评级:
+        <select name="risk">
+            <option value="" >请选择</option>
+            <option value="1" >R1</option>
+            <option value="2" >R2</option>
+            <option value="3" >R3</option>
+        </select>
+            <input type="submit" value="搜索">
+            <a th:href="@{/toadd}">新增理财信息</a>
+        </p>
+    </form>
+    <table border="1px">
+        <tr>
+            <td>产品代码</td>
+            <td>风险评级</td>
+            <td>预期收益</td>
+            <td>发售起始日</td>
+            <td>发售截止日</td>
+            <td>产品到期日</td>
+        </tr>
+        <tr th:each="p :${financingproducts}">
+            <td th:text="${p.id}">产品代码</td>
+            <td th:if="${p.risk==1}" >R1</td>
+            <td th:if="${p.risk==2}" >R2</td>
+            <td th:if="${p.risk==3}" >R3</td>
+            <td th:text="${p.income}">预期收益</td>
+            <td th:text="${#dates.format(p.salestarting,'yyyy-MM-dd')}">发售起始日</td>
+            <td th:text="${#dates.format(p.saleend,'yyyy-MM-dd')}">发售截止日</td>
+            <td th:text="${#dates.format(p.end,'yyyy-MM-dd')}">产品到期日</td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>
